@@ -1,0 +1,44 @@
+```python
+from decimal import Decimal
+import time
+
+def calculate_float(n):
+    """Calculate total using float."""
+    total = 0.0
+
+    for i in range(n):
+        total += float("33.40")
+
+    return total
+
+
+def calculate_decimal(n):
+    """Calculate total using Decimal."""
+    total = Decimal("0.00")
+
+    for i in range(n):
+        total += Decimal("33.40")
+
+    return total
+
+
+sizes = [300, 6000, 150000]
+
+for n in sizes:
+    start = time.perf_counter()
+    float_total = calculate_float(n)
+    float_time = time.perf_counter() - start
+
+    start = time.perf_counter()
+    decimal_total = calculate_decimal(n)
+    decimal_time = time.perf_counter() - start
+
+    difference = abs(Decimal(str(float_total)) - decimal_total)
+
+    print("\nNumber of payments:", n)
+    print("Float total:", float_total)
+    print("Decimal total:", decimal_total)
+    print("Difference:", difference)
+    print(f"Float time: {float_time:.6f} seconds")
+    print(f"Decimal time: {decimal_time:.6f} seconds")
+```
