@@ -1,0 +1,46 @@
+```python
+import math
+
+# Constants
+BASE_RATE = 30.00
+FAT_STEP_VALUE = 0.40
+SNF_STEP_VALUE = 0.30
+STANDARD_FAT = 3.5
+STANDARD_SNF = 8.5
+
+# Input values
+litres = 10
+fat = 4.2
+snf = 8.7
+
+# Calculate fat and SNF steps
+fat_steps = round((fat - STANDARD_FAT) / 0.1)
+snf_steps = round((snf - STANDARD_SNF) / 0.1)
+
+# Calculate rate and payment
+rate = BASE_RATE + fat_steps * FAT_STEP_VALUE + snf_steps * SNF_STEP_VALUE
+amount = round(litres * rate, 2)
+
+print("Fat steps:", fat_steps)
+print("SNF steps:", snf_steps)
+print("Rate per litre: Rs.", format(rate, ".2f"))
+print("Payment amount: Rs.", format(amount, ".2f"))
+
+# Demonstrate unexpected results
+print("\nUnexpected Results")
+print("Fat calculation:", (4.2 - 3.5) / 0.1)
+print("round(2.5):", round(2.5))
+print("int(-2.7):", int(-2.7))
+print("floor(-2.7):", math.floor(-2.7))
+
+# Compare different step calculations
+print("\nAlternative Calculations")
+print("Using round:", round((4.2 - 3.5) / 0.1))
+print("Using int:", int((4.2 - 3.5) / 0.1))
+print("Using floor:", math.floor((4.2 - 3.5) / 0.1))
+
+# Validate inputs
+print("\nValidation")
+print("Fat valid:", 2.0 <= fat <= 7.0)
+print("All inputs valid:", litres > 0 and 2.0 <= fat <= 7.0 and snf >= 0)
+```
