@@ -1,0 +1,60 @@
+```python
+BASE_RATE = 30.00
+FAT_STEP_VALUE = 0.40
+SNF_STEP_VALUE = 0.30
+
+
+def rate_per_litre(fat, snf):
+    """Calculate the rate per litre."""
+    fat_steps = round((fat - 3.5) / 0.1)
+    snf_steps = round((snf - 8.5) / 0.1)
+
+    rate = BASE_RATE + fat_steps * FAT_STEP_VALUE \
+           + snf_steps * SNF_STEP_VALUE
+
+    return round(rate, 2)
+
+
+def payout(litres, fat, snf):
+    """Calculate the total payment."""
+    return round(litres * rate_per_litre(fat, snf), 2)
+
+
+def test_calculator():
+    """Test the calculator using different inputs."""
+
+    # Normal and boundary test cases
+    assert rate_per_litre(3.5, 8.5) == 30.00
+    assert rate_per_litre(4.2, 8.7) == 33.40
+    assert rate_per_litre(3.1, 8.3) == 27.80
+    assert rate_per_litre(2.0, 8.5) == 24.00
+    assert rate_per_litre(7.0, 8.5) == 44.00
+
+    assert payout(10, 3.5, 8.5) == 300.00
+    assert payout(8.5, 4.2, 8.7) == 283.90
+
+    print("All valid test cases passed!")
+
+
+# Main program
+try:
+    litres = float(input("Enter milk quantity: "))
+    fat = float(input("Enter fat percentage (2.0 to 7.0): "))
+    snf = float(input("Enter SNF percentage: "))
+
+    if litres < 0 or not (2.0 <= fat <= 7.0) or snf < 0:
+        print("Invalid input! Check the entered values.")
+
+    else:
+        rate = rate_per_litre(fat, snf)
+        amount = payout(litres, fat, snf)
+
+        print("\n----- Milk Payment -----")
+        print(f"Rate per litre: Rs. {rate:.2f}")
+        print(f"Payment amount: Rs. {amount:.2f}")
+
+except ValueError:
+    print("Invalid input! Please enter numbers only.")
+
+test_calculator()
+```
