@@ -1,0 +1,92 @@
+```python
+from decimal import Decimal, ROUND_HALF_UP
+
+# Original and seasonal rate values
+STANDARD_FAT = Decimal("3.5")
+STANDARD_SNF = Decimal("8.5")
+STEP_SIZE = Decimal("0.1")
+SNF_STEP_VALUE = Decimal("0.30")
+BONUS_RATE = Decimal("0.50")
+BONUS_LIMIT = Decimal("500")
+
+
+def round_steps(value):
+    """Round a step count to the nearest whole number."""
+    return int(value.quantize(
+        Decimal("1"), rounding=ROUND_HALF_UP
+    ))
+
+
+def rate_per_litre(fat, snf, season):
+    """Calculate the rate based on the selected season."""
+    fat = Decimal(str(fat))
+    snf = Decimal(str(snf))
+
+    if season == "April-June":
+        base_rate = Decimal("32.00")
+        fat_step_value = Decimal("0.45")
+    else:
+        base_rate = Decimal("30.00")
+        fat_step_value = Decimal("0.40")
+
+    fat_steps = round_steps((fat - STANDARD_FAT) / STEP_SIZE)
+    snf_steps = round_steps((snf - STANDARD_SNF) / STEP_SIZE)
+
+    rate = (base_rate
+            + fat_steps * fat_step_value
+            + snf_steps * SNF_STEP_VALUE)
+
+    return rate.quantize(Decimal("0.01"))
+
+
+def payout(litres, fat, snf, season):
+    """Calculate the payment for one milk entry."""
+    litres = Decimal(str(litres))
+    rate = rate_per_litre(fat, snf, season)
+
+    return (litres * rate).quantize(
+        Decimal("0.01"), rounding=ROUND_HALF_UP
+    )
+
+
+def bonus(total_litres):
+    """Calculate the bonus for supplying more than 500 litres."""
+    total_litres = Decimal(str(total_litres))
+
+    if total_litres > BONUS_LIMIT:
+        return (total_litres * BONUS_RATE).quantize(
+            Decimal("0.01"), rounding=ROUND_HALF_UP
+        )
+
+    return Decimal("0.00")
+
+
+# Test entries
+season = input("Enter season (April-June or Other): ")
+total_litres = Decimal("0")
+total_payment = Decimal("0")
+
+entries = [
+    ("10", "3.50", "8.50"),
+    ("200", "4.25", "8.70"),
+    ("300", "3.80", "8.60")
+]
+
+for litres, fat, snf in entries:
+    amount = payout(litres, fat, snf, season)
+    total_payment += amount
+    total_litres += Decimal(litres)
+
+    print(
+        f"Litres: {litres}, Fat: {fat}, SNF: {snf}, "
+        f"Payment: Rs. {amount:.2f}"
+    )
+
+bonus_amount = bonus(total_litres)
+final_total = total_payment + bonus_amount
+
+print(f"\nTotal Litres: {total_litres}")
+print(f"Total Payment: Rs. {total_payment:.2f}")
+print(f"Bonus: Rs. {bonus_amount:.2f}")
+print(f"Final Payment: Rs. {final_total:.2f}")
+```
