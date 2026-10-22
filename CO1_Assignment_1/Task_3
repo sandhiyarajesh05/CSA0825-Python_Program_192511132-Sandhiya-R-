@@ -1,0 +1,186 @@
+# TASK 3 – Choose Variables and Name the Constants
+
+# ------------------------------------------
+# 1. DEFINE NAMED CONSTANTS
+# ------------------------------------------
+
+BASE_RATE = 30.0
+FAT_RATE = 0.40
+SNF_RATE = 0.30
+
+MIN_FAT = 2.0
+MAX_FAT = 7.0
+MIN_SNF = 5.0
+MAX_SNF = 10.0
+
+TOTAL_DAYS = 10
+VALID_SHIFTS = ("Morning", "Evening")
+
+# ------------------------------------------
+# 2. STORE FARMER DETAILS
+# ------------------------------------------
+
+farmer_id = "F101"
+farmer_name = "Arun"
+shift = "Morning"
+
+litres = 12.5
+fat_percentage = 4.0
+snf_percentage = 8.5
+
+# ------------------------------------------
+# 3. DISPLAY FARMER DETAILS
+# ------------------------------------------
+
+print("=" * 45)
+print("       MILK PAYMENT CALCULATION")
+print("=" * 45)
+
+print("Farmer ID       :", farmer_id)
+print("Farmer Name     :", farmer_name)
+print("Shift           :", shift)
+print("Milk Quantity   :", litres, "litres")
+print("Fat Percentage  :", fat_percentage, "%")
+print("SNF Percentage  :", snf_percentage, "%")
+
+# ------------------------------------------
+# 4. VALIDATE INPUT VALUES
+# ------------------------------------------
+
+if not farmer_id.strip():
+    print("Error: Farmer ID cannot be empty.")
+
+elif litres <= 0:
+    print("Error: Milk quantity must be greater than zero.")
+
+elif not MIN_FAT <= fat_percentage <= MAX_FAT:
+    print("Error: Fat percentage is outside the allowed range.")
+
+elif not MIN_SNF <= snf_percentage <= MAX_SNF:
+    print("Error: SNF percentage is outside the allowed range.")
+
+elif shift not in VALID_SHIFTS:
+    print("Error: Invalid shift.")
+
+else:
+
+    # --------------------------------------
+    # 5. CALCULATE RATE PER LITRE
+    # --------------------------------------
+
+    rate_per_litre = (
+        BASE_RATE
+        + fat_percentage * FAT_RATE
+        + snf_percentage * SNF_RATE
+    )
+
+    daily_payment = litres * rate_per_litre
+
+    print("-" * 45)
+    print("Base Rate       : Rs", BASE_RATE)
+    print("Rate per Litre  : Rs", round(rate_per_litre, 2))
+    print("Daily Payment   : Rs", round(daily_payment, 2))
+
+    # --------------------------------------
+    # 6. CALCULATE PAYMENT FOR TEN DAYS
+    # --------------------------------------
+
+    daily_payments = []
+
+    for day in range(1, TOTAL_DAYS + 1):
+        payment = round(daily_payment, 2)
+        daily_payments.append(payment)
+
+        print(
+            "Day", day,
+            "Payment: Rs", format(payment, ".2f")
+        )
+
+    total_payment = sum(daily_payments)
+
+    print("-" * 45)
+    print("Total Days      :", TOTAL_DAYS)
+    print("Ten-Day Total   : Rs", format(total_payment, ".2f"))
+
+# ------------------------------------------
+# 7. DEMONSTRATE DYNAMIC TYPING
+# ------------------------------------------
+
+print("\nDYNAMIC TYPING EXAMPLE")
+
+value = 100
+print("Value:", value)
+print("Type :", type(value))
+
+value = "Milk Payment"
+print("Value:", value)
+print("Type :", type(value))
+
+# ------------------------------------------
+# 8. DEMONSTRATE MULTIPLE ASSIGNMENT
+# ------------------------------------------
+
+print("\nMULTIPLE ASSIGNMENT")
+
+a, b, c = 10, 20, 30
+
+print("a =", a)
+print("b =", b)
+print("c =", c)
+
+# ------------------------------------------
+# 9. DEMONSTRATE SWAPPING
+# ------------------------------------------
+
+print("\nSWAPPING VARIABLES")
+
+a = 10
+b = 20
+
+print("Before swapping:")
+print("a =", a)
+print("b =", b)
+
+a, b = b, a
+
+print("After swapping:")
+print("a =", a)
+print("b =", b)
+
+# ------------------------------------------
+# 10. USE A RATE CARD DICTIONARY
+# ------------------------------------------
+
+print("\nRATE CARD DICTIONARY")
+
+RATE_CARD = {
+    "base": 30.0,
+    "fat": 0.40,
+    "snf": 0.30
+}
+
+print("Base Rate:", RATE_CARD["base"])
+print("Fat Rate :", RATE_CARD["fat"])
+print("SNF Rate :", RATE_CARD["snf"])
+
+dictionary_rate = (
+    RATE_CARD["base"]
+    + fat_percentage * RATE_CARD["fat"]
+    + snf_percentage * RATE_CARD["snf"]
+)
+
+print(
+    "Dictionary Rate per Litre: Rs",
+    format(dictionary_rate, ".2f")
+)
+
+# ------------------------------------------
+# 11. CONCLUSION
+# ------------------------------------------
+
+print("\nPROGRAM COMPLETED")
+print("Named constants simplify rate revisions.")
+print("Validation prevents invalid payment entries.")
+print("Dynamic typing allows different data types.")
+print("Multiple assignment simplifies variable swapping.")
+print("A rate card groups related pricing values.")
