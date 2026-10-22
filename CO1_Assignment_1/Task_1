@@ -1,0 +1,44 @@
+# Farmer Milk Payment System
+
+MIN_FAT = 2.0
+MAX_FAT = 7.0
+
+farmer_id = input("Enter Farmer ID: ")
+shift = input("Enter Shift (Morning/Evening): ")
+
+# Day 1
+print("\nDay 1")
+litres1 = float(input("Enter milk quantity in litres: "))
+fat1 = float(input("Enter fat percentage: "))
+snf1 = float(input("Enter SNF percentage: "))
+
+if litres1 > 0 and MIN_FAT <= fat1 <= MAX_FAT and snf1 > 0:
+    rate1 = 30 + (fat1 * 2) + (snf1 * 0.5)
+    amount1 = litres1 * rate1
+    print("Rate per litre: Rs.", rate1)
+    print("Payment amount: Rs.", amount1)
+else:
+    print("Invalid milk details!")
+    amount1 = 0
+
+# Day 2
+print("\nDay 2")
+litres2 = float(input("Enter milk quantity in litres: "))
+fat2 = float(input("Enter fat percentage: "))
+snf2 = float(input("Enter SNF percentage: "))
+
+if litres2 > 0 and MIN_FAT <= fat2 <= MAX_FAT and snf2 > 0:
+    rate2 = 30 + (fat2 * 2) + (snf2 * 0.5)
+    amount2 = litres2 * rate2
+    print("Rate per litre: Rs.", rate2)
+    print("Payment amount: Rs.", amount2)
+else:
+    print("Invalid milk details!")
+    amount2 = 0
+
+# Total payment for two days
+total = amount1 + amount2
+
+print("\nFarmer ID:", farmer_id)
+print("Shift:", shift)
+print("Total payment for 2 days: Rs.", total)
