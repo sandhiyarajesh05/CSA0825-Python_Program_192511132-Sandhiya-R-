@@ -1,8 +1,0 @@
-import re
-
-reg = "TN09AB1234"
-
-if re.fullmatch(r"[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}", reg):
-    print("Valid")
-else:
-    print("Invalid")
