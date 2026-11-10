@@ -1,0 +1,26 @@
+otp = "1234"
+security = input("Security answer correct? (yes/no): ")
+
+if security == "yes":
+    limit = 5
+else:
+    limit = 3
+
+attempts = 0
+
+while attempts < limit:
+    entry = input("Enter OTP: ")
+
+    if entry == "":
+        continue
+
+    attempts += 1
+
+    if entry == otp:
+        print("OTP Verified")
+        break
+    else:
+        print("Wrong OTP")
+
+else:
+    print("Account Locked for 30 Minutes")
