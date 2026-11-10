@@ -1,0 +1,16 @@
+units = int(input("Enter units: "))
+ration = input("Ration card (yes/no): ")
+age = input("Age above 80 (yes/no): ")
+
+match True:
+    case _ if units <= 100:
+        print("Full Subsidy")
+
+    case _ if 101 <= units <= 200 and ration == "yes":
+        print("Partial Subsidy")
+
+    case _ if units > 200 and age == "yes":
+        print("Special Subsidy")
+
+    case _:
+        print("No Subsidy")
