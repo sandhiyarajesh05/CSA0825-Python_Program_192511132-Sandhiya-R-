@@ -1,0 +1,12 @@
+units = int(input("Enter electricity units: "))
+
+slabs = [
+    (100, "Full Subsidy"),
+    (200, "Check Ration Card"),
+    (float('inf'), "Check Age")
+]
+
+for limit, decision in slabs:
+    if units <= limit:
+        print(decision)
+        break
