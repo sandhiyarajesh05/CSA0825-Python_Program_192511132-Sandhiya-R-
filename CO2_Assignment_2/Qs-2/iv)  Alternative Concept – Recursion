@@ -1,0 +1,16 @@
+def verify(attempts):
+    if attempts == 3:
+        print("Account Locked")
+        return
+
+    entry = input("Enter OTP: ")
+
+    if entry == "":
+        verify(attempts)
+    elif entry == "1234":
+        print("OTP Verified")
+    else:
+        print("Wrong OTP")
+        verify(attempts + 1)
+
+verify(0)
