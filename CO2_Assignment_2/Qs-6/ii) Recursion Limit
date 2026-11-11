@@ -1,0 +1,8 @@
+import sys
+
+print("Recursion Limit:", sys.getrecursionlimit())
+
+try:
+    print(ways_memo(1000))
+except RecursionError:
+    print("Recursion limit exceeded")
