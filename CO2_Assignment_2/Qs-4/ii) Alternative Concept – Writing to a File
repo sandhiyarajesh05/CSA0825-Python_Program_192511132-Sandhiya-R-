@@ -1,0 +1,5 @@
+with open("bill.txt", "w") as file:
+    for item in items:
+        file.write(item + ";")
+
+print("Bill generated successfully")
