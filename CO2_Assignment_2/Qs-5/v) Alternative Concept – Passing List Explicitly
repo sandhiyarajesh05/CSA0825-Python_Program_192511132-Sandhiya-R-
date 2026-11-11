@@ -1,0 +1,9 @@
+def add_item(item, order):
+    order.append(item)
+    return order
+
+customer1 = []
+customer2 = []
+
+print(add_item("Tea", customer1))
+print(add_item("Vada", customer2))
