@@ -1,0 +1,7 @@
+customer1 = add_item("Tea")
+customer2 = add_item("Vada")
+customer3 = add_item("Coffee")
+
+print("Customer 1:", customer1)
+print("Customer 2:", customer2)
+print("Customer 3:", customer3)
