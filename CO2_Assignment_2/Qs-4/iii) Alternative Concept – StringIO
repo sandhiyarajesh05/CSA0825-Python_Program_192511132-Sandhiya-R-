@@ -1,0 +1,10 @@
+from io import StringIO
+
+output = StringIO()
+
+for item in items:
+    output.write(item + ";")
+
+result = output.getvalue()
+
+print("Bill generated successfully")
