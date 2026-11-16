@@ -1,0 +1,100 @@
+import random
+import time
+from collections import deque
+
+# Generate 365 daily rainfall readings
+random.seed(42)
+readings = [random.randint(0, 30) for i in range(365)]
+
+# 1. Weekly rainfall totals using slicing
+weekly_totals = []
+
+for i in range(0, len(readings), 7):
+    weekly_totals.append(sum(readings[i:i+7]))
+
+print("First 14 Readings:", readings[:14])
+print("Weekly Totals:", weekly_totals[:5])
+
+# 2. Maximum and Minimum rainfall
+maximum = max(readings)
+minimum = min(readings)
+
+print("Maximum Rainfall:", maximum, "mm")
+print("Maximum Position:", [i+1 for i, x in enumerate(readings) if x == maximum])
+
+print("Minimum Rainfall:", minimum, "mm")
+print("Minimum Position:", [i+1 for i, x in enumerate(readings) if x == minimum])
+
+# 3. Naive Moving Average
+def naive_average(data):
+    result = []
+
+    for i in range(len(data) - 6):
+        avg = sum(data[i:i+7]) / 7
+        result.append(avg)
+
+    return result
+
+# 4. Running Sum Moving Average
+def running_average(data):
+    result = []
+
+    if len(data) < 7:
+        return result
+
+    total = sum(data[:7])
+    result.append(total / 7)
+
+    for i in range(7, len(data)):
+        total = total - data[i-7] + data[i]
+        result.append(total / 7)
+
+    return result
+
+
+naive = naive_average(readings)
+running = running_average(readings)
+
+print("Moving Average Count:", len(running))
+print("First 5 Moving Averages:", running[:5])
+
+# 5. Find Dry Days
+dry_days = [i+1 for i, x in enumerate(readings) if x == 0]
+
+print("Dry Days:", dry_days)
+
+# 6. Experimental Investigation
+sizes = [365, 36500, 365000]
+
+print("\nPerformance Comparison")
+
+for n in sizes:
+    data = [random.randint(0, 30) for i in range(n)]
+
+    start = time.perf_counter()
+    naive_average(data)
+    naive_time = time.perf_counter() - start
+
+    start = time.perf_counter()
+    running_average(data)
+    running_time = time.perf_counter() - start
+
+    print("\nReadings:", n)
+    print("Naive Time:", round(naive_time, 6), "seconds")
+    print("Running Sum Time:", round(running_time, 6), "seconds")
+
+
+# 7. Edge Case Testing
+print("\nEdge Case Testing")
+
+print("Empty List:", running_average([]))
+print("Short List:", running_average([10, 20, 30, 40, 50]))
+
+# 8. Deque Example
+window = deque(maxlen=7)
+
+for value in readings[:7]:
+    window.append(value)
+
+print("\nDeque Window:", list(window))
+print("Deque Average:", sum(window) / 7)
