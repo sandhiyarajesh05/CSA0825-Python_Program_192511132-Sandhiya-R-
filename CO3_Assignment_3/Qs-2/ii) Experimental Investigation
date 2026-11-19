@@ -1,0 +1,2 @@
+print(bad[0] is bad[1])
+print(good[0] is good[1])
