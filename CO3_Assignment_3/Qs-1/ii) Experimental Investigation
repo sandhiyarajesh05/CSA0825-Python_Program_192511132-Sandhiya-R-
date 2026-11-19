@@ -1,0 +1,5 @@
+sizes = [365, 36500, 365000]
+
+for n in sizes:
+    readings = [random.randint(0, 30) for i in range(n)]
+    print("Number of readings:", n)
