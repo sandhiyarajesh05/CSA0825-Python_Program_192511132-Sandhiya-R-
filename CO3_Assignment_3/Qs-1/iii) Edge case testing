@@ -1,0 +1,2 @@
+print("Empty List:", [])
+print("Short List:", [10, 20, 30, 40, 50])
