@@ -1,0 +1,154 @@
+import copy
+import sys
+import time
+
+# 1. Grid creation
+rows, cols = 3, 4
+
+# Incorrect grid
+bad = [[0] * cols] * rows
+bad[0][1] = 7
+
+# Correct grid using list comprehension
+good = [[0 for j in range(cols)] for i in range(rows)]
+good[0][1] = 7
+
+print("bad :", bad)
+print("good:", good)
+
+print(bad[0] is bad[1], good[0] is good[1])
+
+
+# 2. Tuples as dictionary keys
+stops = {
+    (13.0827, 80.2707): "Chennai Central",
+    (13.0418, 80.2341): "T. Nagar"
+}
+
+print(stops[(13.0418, 80.2341)])
+
+
+# 3. Tuple unpacking
+print("\nTuple Unpacking:")
+
+for location, name in stops.items():
+    print(name, ":", location)
+
+
+# 4. Aliasing
+print("\nAliasing:")
+
+a = [10, 20, 30]
+b = a
+
+b[0] = 100
+
+print("a:", a)
+print("b:", b)
+print("Same object:", a is b)
+
+
+# 5. Shallow Copy
+print("\nShallow Copy:")
+
+a = [[1, 2], [3, 4]]
+b = copy.copy(a)
+
+b[0][0] = 99
+
+print("Original:", a)
+print("Copy:", b)
+
+
+# 6. Deep Copy
+print("\nDeep Copy:")
+
+a = [[1, 2], [3, 4]]
+b = copy.deepcopy(a)
+
+b[0][0] = 99
+
+print("Original:", a)
+print("Copy:", b)
+
+
+# 7. Function changing list
+print("\nFunction Example:")
+
+def change(data):
+    data.append(50)
+
+numbers = [10, 20, 30]
+change(numbers)
+
+print("Updated List:", numbers)
+
+
+# 8. Memory comparison
+print("\nMemory Comparison:")
+
+values = list(range(1000000))
+tuple_values = tuple(values)
+
+print("List Memory:", sys.getsizeof(values))
+print("Tuple Memory:", sys.getsizeof(tuple_values))
+
+
+# 9. Time comparison
+print("\nTime Comparison:")
+
+start = time.perf_counter()
+my_list = list(range(1000000))
+list_time = time.perf_counter() - start
+
+start = time.perf_counter()
+my_tuple = tuple(range(1000000))
+tuple_time = time.perf_counter() - start
+
+print("List Creation Time:", list_time)
+print("Tuple Creation Time:", tuple_time)
+
+start = time.perf_counter()
+
+for i in range(100000):
+    x = my_list[500]
+
+print("List Indexing Time:", time.perf_counter() - start)
+
+start = time.perf_counter()
+
+for i in range(100000):
+    x = my_tuple[500]
+
+print("Tuple Indexing Time:", time.perf_counter() - start)
+
+
+# 10. List inside Tuple
+print("\nList Inside Tuple:")
+
+t = (10, [20, 30])
+
+t[1].append(40)
+
+print(t)
+
+
+# 11. Dictionary Key Error
+print("\nDictionary Key Test:")
+
+try:
+    test = {[13.0418, 80.2341]: "T. Nagar"}
+except TypeError as e:
+    print("Error:", e)
+
+
+# 12. Sparse Dictionary
+print("\nSparse Dictionary:")
+
+zones = {
+    (0, 1): 7,
+    (2, 3): 5
+}
+
+print("Passengers:", zones.get((0, 1), 0))
+print("Empty Zone:", zones.get((1, 1), 0))
